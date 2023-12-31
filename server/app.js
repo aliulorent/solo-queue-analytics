@@ -82,20 +82,31 @@ app.get('/getSummoner/:region/:name/:tag', async (req, res) => {
 });
 
 app.put('/updateSummoner/:region/:name/:tag', async (req, res)=>{
-    const query = `SELECT * FROM users WHERE riot_name = ? AND tag_line = ? AND region = ?`;
-    const puuidResponse = await axios.get(`https://${regionMap[req.params.region.toUpperCase()]}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${req.params.name}/${req.params.tag}?api_key=${riotKey}`);
-    const puuid = puuidResponse.data.puuid;
-    const summonerResponse = await axios.get(`https://${req.params.region.toUpperCase()}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${riotKey}`);
-    const data = summonerResponse.data;
-    const query2 = `INSERT INTO users (puuid, riot_name, tag_line, region, account_id, summoner_id, level, icon_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE riot_name=?, tag_line=?, region=?, account_id=?, summoner_id=?, level=?, icon_id=?`;
-    const [results] = await connection.query(query2, [puuid, req.params.name, req.params.tag, req.params.region, data.accountId, data.id, data.summonerLevel, data.profileIconId, req.params.name, req.params.tag, req.params.region, data.accountId, data.id, data.summonerLevel, data.profileIconId]);
-    // Insert queries don't return the rows inserted, so we need to query it again to retrieve it!
-    const [rows2, fields2] = await connection.query(query, [req.params.name, req.params.tag, req.params.region]);
-    if(rows2.length>0){
-        res.status(200).send(rows2[0]);
+    try{
+        const query = `SELECT * FROM users WHERE riot_name = ? AND tag_line = ? AND region = ?`;
+        const puuidResponse = await axios.get(`https://${regionMap[req.params.region.toUpperCase()]}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${req.params.name}/${req.params.tag}?api_key=${riotKey}`);
+        const puuid = puuidResponse.data.puuid;
+        const summonerResponse = await axios.get(`https://${req.params.region.toUpperCase()}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${riotKey}`);
+        const data = summonerResponse.data;
+        const query2 = `INSERT INTO users (puuid, riot_name, tag_line, region, account_id, summoner_id, level, icon_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE riot_name=?, tag_line=?, region=?, account_id=?, summoner_id=?, level=?, icon_id=?`;
+        const [results] = await connection.query(query2, [puuid, req.params.name, req.params.tag, req.params.region, data.accountId, data.id, data.summonerLevel, data.profileIconId, req.params.name, req.params.tag, req.params.region, data.accountId, data.id, data.summonerLevel, data.profileIconId]);
+        // Insert queries don't return the rows inserted, so we need to query it again to retrieve it!
+        const [rows2, fields2] = await connection.query(query, [req.params.name, req.params.tag, req.params.region]);
+        if(rows2.length>0){
+            res.status(200).send(rows2[0]);
+        }
+        else{
+            throw new Error("Query somehow did not find user.");
+        }
     }
-    else{
-        throw new Error("Query somehow did not find user.");
+    catch(error){
+        if(error.response){
+            console.log(error.response.status);
+            res.status(error.response.status).send("Error");
+        }
+        else{
+            res.status(500).send("Something unexpected happened... Please try again later.");
+        }
     }
 });
 
