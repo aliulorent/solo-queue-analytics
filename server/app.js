@@ -103,7 +103,12 @@ app.put("/updateMatchHistory/:region/:puuid", async (req, res)=>{
         // Insert queries dont return the rows we inserted, so lets search for them.
         const query2 = `SELECT * FROM match_history WHERE puuid=?`;
         const [rows, fields] = await connection.query(query2, [req.params.puuid]);
-        res.send(rows[0]);
+        if(rows.length>0){
+            res.status(200).send(rows[0]);
+        }
+        else{
+            res.status(200).send("Not found");
+        }
     }
     catch(error){
         if(error.response){
@@ -120,7 +125,12 @@ app.get('/getMatchHistory/:puuid', async (req, res)=>{
     try{
         const query = `SELECT * FROM match_history WHERE puuid=?`;
         const [rows, fields] = await connection.query(query, [req.params.puuid]);
-        res.send(rows[0]);
+        if(rows.length>0){
+            res.status(200).send(rows[0]);
+        }
+        else{
+            res.status(200).send("Not found");
+        }
     }
     catch(error){
         if(error.response){
@@ -132,7 +142,60 @@ app.get('/getMatchHistory/:puuid', async (req, res)=>{
     }
 });
 
+app.put('/updateRankedStats/:region/:summonerId/:puuid', async (req, res)=>{
+    try{
+        const rankedResponse = await axios.get(`https://${req.params.region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${req.params.summonerId}?api_key=${riotKey}`);
+        // Some players have ONLY soloQ games, or ONLY flexQ games, or NEITHER. Need to filter based on that.
+        const [soloRanked] = rankedResponse.data.filter((type)=>type.queueType==="RANKED_SOLO_5x5");
+        const [flexRanked] = rankedResponse.data.filter((type)=>type.queueType==="RANKED_FLEX_SR");
+        if(soloRanked){
+            const soloQuery = `INSERT INTO ranked_stats (puuid, solo_tier, solo_rank, solo_lp, solo_wins, solo_losses) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE solo_tier=?, solo_rank=?, solo_lp=?, solo_wins=?, solo_losses=?`;
+            const [results] = await connection.query(soloQuery, [req.params.puuid, soloRanked.tier, soloRanked.rank, soloRanked.leaguePoints, soloRanked.wins, soloRanked.losses, soloRanked.tier, soloRanked.rank, soloRanked.leaguePoints, soloRanked.wins, soloRanked.losses]);
+        }
+        if(flexRanked){
+            const flexQuery = `INSERT INTO ranked_stats (puuid, flex_tier, flex_rank, flex_lp, flex_wins, flex_losses) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE flex_tier=?, flex_rank=?, flex_lp=?, flex_wins=?, flex_losses=?`;
+            const [results] = await connection.query(flexQuery, [req.params.puuid, flexRanked.tier, flexRanked.rank, flexRanked.leaguePoints, flexRanked.wins, flexRanked.losses, flexRanked.tier, flexRanked.rank, flexRanked.leaguePoints, flexRanked.wins, flexRanked.losses]);
+        }
+        // Need to select updated results to send back to client
+        const query = `SELECT * FROM ranked_stats WHERE puuid=?`;
+        const [rows, fields] = await connection.query(query, [req.params.puuid]);
+        if(rows.length>0){
+            res.status(200).send(rows[0]);
+        }
+        else{
+            res.status(200).send("Not found");
+        }
+    }
+    catch(error){
+        if(error.response){
+            res.status(error.response.status).send("Error");
+        }
+        else{
+            res.status(500).send("Something unexpected happened... Please try again later.");
+        }
+    }
+});
 
+app.get('/getRankedStats/:puuid', async (req, res)=>{
+    try{
+        const query = `SELECT * FROM ranked_stats WHERE puuid=?`;
+        const [rows, fields] = await connection.query(query, [req.params.puuid]);
+        if(rows.length>0){
+            res.status(200).send(rows[0]);
+        }
+        else{
+            res.status(200).send("Not found");
+        }
+    }
+    catch(error){
+        if(error.response){
+            res.status(error.response.status).send("Error");
+        }
+        else{
+            res.status(500).send("Something unexpected happened... Please try again later.");
+        }
+    }
+});
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`);
