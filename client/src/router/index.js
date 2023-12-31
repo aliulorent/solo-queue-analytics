@@ -1,18 +1,19 @@
 import {createRouter, createWebHistory} from 'vue-router'
-// import ProfileView from "../views/ProfileView.vue"
-// import HomeView from "../views/HomeView.vue"
+import HomeView from "../views/HomeView.vue"
+import SummonerView from "../views/SummonerView.vue"
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
-        // {
-        //     path: "/",
-        //     component: HomeView,
-        // },
-        // {
-        //     path: "/user/:region/:name/:tag",
-        //     component: ProfileView,
-        // }
+        {
+            path: "/",
+            component: HomeView,
+        },
+        {
+            path: "/summoner/:region/:name/:tag",
+            component: SummonerView,
+        }
     ]
 })
 
