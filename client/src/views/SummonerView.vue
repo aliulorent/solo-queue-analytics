@@ -1,51 +1,43 @@
 <script setup>
-import {ref} from "vue";
 import { useRoute } from "vue-router";
+import { usePlayerStore } from "@/stores/playerStore";
+import { useRankedStore} from "@/stores/rankedStore";
+import { useMatchHistoryStore } from "@/stores/matchHistoryStore";
 
+const player = usePlayerStore();
+const ranked = useRankedStore();
+const matchHistory = useMatchHistoryStore();
 const route = useRoute();
 const {region, name, tag} = route.params;
-const fetchStatus = ref(0);
-const tempDisplay = ref({});
-// 0 = Loading, 1 = Success, 2 = Not found, 3 = Error
 
-const searchSummoner = async ()=>{
-    try{
-        const res = await fetch(`http://localhost:3000/getSummoner/${region}/${name}/${tag}`);
-        switch(res.status){
-            case 200:{
-                // Successfully recieved data
-                const data = await res.json();
-                tempDisplay.value = data;
-                fetchStatus.value = 1;
-                break;
-            }
-            case 404:{
-                //Not found!
-                tempDisplay.value = "Player not found!";
-                fetchStatus.value = 2;
-                break;
-            }
-            default: {
-                //Error block
-                tempDisplay.value = "Something went wrong default";
-                fetchStatus.value = 3;
-            }
-        }
-    }   
-    catch(error){
-        tempDisplay.value = "Something went wrong catch";
-        fetchStatus.value = 3;
-    }
+const loadData = async ()=>{
+    player.setSearch(region, name, tag);
+    await player.fetchPlayer();
+    await ranked.fetchRankedStats();
+    await matchHistory.fetchMatchHistory();
+};
+loadData();
+
+const updateData = async ()=>{
+    await player.updatePlayer();
+    await ranked.updateRankedStats();
+    await matchHistory.updateMatchHistory();
 }
-
-searchSummoner();
 
 </script>
 <template>
-    <div v-if="fetchStatus===0">Loading Player...</div>
-    <div v-if="fetchStatus===1">
-        {{tempDisplay}}
+    <div v-if="player.isLoading===true && player.isError===false">Loading Player...</div>
+    <div v-if="player.isLoading===false && player.isError===true">Error occurred</div>
+    <div v-if="player.isLoading===false && player.isError===false">
+        {{ player.puuid }}
+        {{ player.level }}
+        {{ ranked.solo_tier }}
+        {{ ranked.solo_rank }}
+        {{ matchHistory.matches[0] }}
+        {{ matchHistory.last_update }}
     </div>
-    <div v-if="fetchStatus===2">{{tempDisplay}}</div>
-    <div v-if="fetchStatus===3">{{tempDisplay}}</div>
+    {{ matchHistory.isLoading }}
+    {{ matchHistory.isError }}
+    {{ matchHistory.statusCode }}
+    <button @click="updateData" class="bg-blue-500 rounded-md p-2">Update</button>
 </template>
