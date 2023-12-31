@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import axios from "axios";
 import express from "express";
 import mysql from "mysql2/promise";
+import cors from "cors";
 
 const regionMap = {
     "NA1":"Americas",
@@ -29,6 +30,9 @@ const port = process.env.PORT || 3000;
 const riotKey = process.env.RIOT_KEY;
 
 const connection = await mysql.createConnection(process.env.DATABASE_URL);
+app.use(cors({
+    origin: '*'
+}))
 
 app.get('/', (req, res) => {
     res.send("Welcome to my API!");
@@ -70,8 +74,9 @@ app.get('/getSummoner/:region/:name/:tag', async (req, res) => {
             res.status(500).send("Something unexpected happened... Please try again later.");
         }
     }
-    
 });
+
+
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`);
