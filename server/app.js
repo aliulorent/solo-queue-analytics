@@ -22,6 +22,11 @@ const regionMap = {
     "TW2":"Sea",
     "VN2":"Sea",
 };
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 
 dotenv.config();
 const app = express();
@@ -68,6 +73,57 @@ app.get('/getSummoner/:region/:name/:tag', async (req, res) => {
     catch(error){
         if(error.response){
             console.log(error.response.status);
+            res.status(error.response.status).send("Error");
+        }
+        else{
+            res.status(500).send("Something unexpected happened... Please try again later.");
+        }
+    }
+});
+
+app.put("/updateMatchHistory/:region/:puuid", async (req, res)=>{
+    const queue = 420;
+    const count = 3;
+    const offset = 0;
+    try{
+        // Manually update match history, so need to search through Riot's API
+        const matchList = await axios.get(`https://${regionMap[req.params.region.toUpperCase()]}.api.riotgames.com/lol/match/v5/matches/by-puuid/${req.params.puuid}/ids?queue=${queue}&start=${offset}&count=${count}&api_key=${riotKey}`);
+        // Want to try and concurrently fetch all match data at same time (about 20 matches)
+        // Riot API rate limits to 20 request per second, and since we have 20 matches, we need to wait a second otherwise we will limit ourselves.
+        await sleep(1000);
+        let promiseList = [];
+        matchList.data.forEach(matchId => {
+            promiseList.push(axios.get(`https://${regionMap[req.params.region.toUpperCase()]}.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${riotKey}`));
+        });
+        const resolvedList = await Promise.all(promiseList);
+        const matches = resolvedList.map(entry => entry.data);
+        // new up-to-date list of matches, insert them into our DB now.
+        const query = `INSERT INTO match_history (puuid, matches) VALUES (?, ?) ON DUPLICATE KEY UPDATE matches=?`;
+        const [results] = await connection.query(query, [req.params.puuid, JSON.stringify(matches), JSON.stringify(matches)]);
+        // Insert queries dont return the rows we inserted, so lets search for them.
+        const query2 = `SELECT * FROM match_history WHERE puuid=?`;
+        const [rows, fields] = await connection.query(query2, [req.params.puuid]);
+        res.send(rows[0]);
+    }
+    catch(error){
+        if(error.response){
+            res.status(error.response.status).send("Error");
+        }
+        else{
+            console.log(error);
+            res.status(500).send("Something unexpected happened... Please try again later.");
+        }
+    }
+});
+
+app.get('/getMatchHistory/:puuid', async (req, res)=>{
+    try{
+        const query = `SELECT * FROM match_history WHERE puuid=?`;
+        const [rows, fields] = await connection.query(query, [req.params.puuid]);
+        res.send(rows[0]);
+    }
+    catch(error){
+        if(error.response){
             res.status(error.response.status).send("Error");
         }
         else{
