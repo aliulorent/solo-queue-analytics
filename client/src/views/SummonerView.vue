@@ -3,6 +3,7 @@ import { useRoute } from "vue-router";
 import { usePlayerStore } from "@/stores/playerStore";
 import { useRankedStore} from "@/stores/rankedStore";
 import { useMatchHistoryStore } from "@/stores/matchHistoryStore";
+import UserDisplay from "../components/UserDisplay.vue"
 
 const player = usePlayerStore();
 const ranked = useRankedStore();
@@ -21,7 +22,7 @@ loadData();
 const updateData = async ()=>{
     await player.updatePlayer();
     await ranked.updateRankedStats();
-    await matchHistory.updateMatchHistory();
+    //await matchHistory.updateMatchHistory();
 }
 
 </script>
@@ -29,15 +30,7 @@ const updateData = async ()=>{
     <div v-if="player.isLoading===true && player.isError===false">Loading Player...</div>
     <div v-if="player.isLoading===false && player.isError===true">Error occurred</div>
     <div v-if="player.isLoading===false && player.isError===false">
-        {{ player.puuid }}
-        {{ player.level }}
-        {{ ranked.solo_tier }}
-        {{ ranked.solo_rank }}
-        {{ matchHistory.matches[0] }}
-        {{ matchHistory.last_update }}
+        <UserDisplay/>
     </div>
-    {{ matchHistory.isLoading }}
-    {{ matchHistory.isError }}
-    {{ matchHistory.statusCode }}
     <button @click="updateData" class="bg-blue-500 rounded-md p-2">Update</button>
 </template>

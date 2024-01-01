@@ -38,7 +38,7 @@ export const usePlayerStore = defineStore('player', ()=> {
                 account_id.value = data.account_id;
                 summoner_id.value = data.summoner_id;
                 level.value = data.level;
-                icon_id.value = data.value;
+                icon_id.value = data.icon_id;
 
                 statusCode.value = res.status;
                 isError.value = false;
@@ -84,7 +84,7 @@ export const usePlayerStore = defineStore('player', ()=> {
                 account_id.value = data.account_id;
                 summoner_id.value = data.summoner_id;
                 level.value = data.level;
-                icon_id.value = data.value;
+                icon_id.value = data.icon_id;
 
                 statusCode.value = res.status;
                 isError.value = false;
