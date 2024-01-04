@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router'
 
 <template>
   <main class="bg-blue-900 min-h-screen">
-    <RouterView />
+    <RouterView/>
   </main>
 </template>
 

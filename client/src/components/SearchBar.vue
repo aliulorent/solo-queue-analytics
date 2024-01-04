@@ -8,12 +8,15 @@ const selection = ref({
   tag: "",
 })
 const router = useRouter();
-
+const updateRoute = async ()=>{
+  await router.push(`/summoner/${selection.value.region}/${selection.value.name}/${selection.value.tag}`);
+  router.go(0);
+}
 </script>
 
 <template>
   <!-- <div class="flex flex-y justify-center flex-col items-center gap-1"> -->
-    <form class="flex items-center gap-1" @submit.prevent="router.push(`/summoner/${selection.region}/${selection.name}/${selection.tag}`)">
+    <form class="flex items-center gap-1" @submit.prevent="updateRoute">
       <select name="Region" v-model="selection.region">
         <option value="NA1">North America</option>
         <option value="EUW1">Europe West</option>
