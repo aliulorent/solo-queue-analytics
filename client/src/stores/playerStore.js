@@ -12,7 +12,7 @@ export const usePlayerStore = defineStore('player', ()=> {
     const level = ref(0);
     const icon_id = ref(0);
 
-    const isLoading = ref(false);
+    const isLoading = ref(true);
     const isError = ref(false);
     const statusCode = ref(0);
 

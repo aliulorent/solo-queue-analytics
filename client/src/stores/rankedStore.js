@@ -17,7 +17,7 @@ export const useRankedStore = defineStore('ranked', ()=> {
     const flex_wins = ref(0);
     const flex_losses = ref(0);
     
-    const isLoading = ref(false);
+    const isLoading = ref(true);
     const isError = ref(false);
     const statusCode = ref(0);
 

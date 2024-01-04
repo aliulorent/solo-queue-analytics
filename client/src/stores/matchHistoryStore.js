@@ -9,7 +9,7 @@ export const useMatchHistoryStore = defineStore('matchHistory', ()=> {
     const matches= ref([]);
     const last_update = ref("");
 
-    const isLoading = ref(false);
+    const isLoading = ref(true);
     const isError = ref(false);
     const statusCode = ref(0);
 
