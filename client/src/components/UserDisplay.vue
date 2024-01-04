@@ -1,9 +1,11 @@
 <script setup>
 import { usePlayerStore } from "@/stores/playerStore";
 import { useRankedStore} from "@/stores/rankedStore";
+import { useMatchHistoryStore } from "@/stores/matchHistoryStore";
 import { computed } from "vue";
 const player = usePlayerStore();
 const ranked = useRankedStore();
+const matchHistory = useMatchHistoryStore();
 const soloWinRate = computed(()=>{
     if(ranked && ranked.solo_wins){
         return Math.round((ranked.solo_wins / (ranked.solo_wins + ranked.solo_losses) * 100));
@@ -20,6 +22,12 @@ const flexWinRate = computed(()=>{
         return 0;
     }
 })
+const updateData = async ()=>{
+    console.log("Updating Data...");
+    await player.updatePlayer();
+    await ranked.updateRankedStats();
+    await matchHistory.updateMatchHistory();
+}
 </script>
 <template>
     <!-- Main Container for header section that displays user info -->
@@ -41,7 +49,7 @@ const flexWinRate = computed(()=>{
                     <h1 class="font-bold text-gray-400">{{ "#"+player.tag_line }}</h1>
                 </div>
                 <div class="">
-                    <button class="rounded-lg bg-blue-500 text-white p-1 px-2 mx-3">Update</button>
+                    <button @click="updateData" class="rounded-lg bg-blue-500 text-white p-1 px-2 mx-3" >Update</button>
                 </div>
             </div>
         </div>

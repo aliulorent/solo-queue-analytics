@@ -12,8 +12,7 @@ const router = useRouter();
 </script>
 
 <template>
-  <div class="flex flex-y justify-center min-h-screen flex-col items-center gap-1">
-    {{ selection }}
+  <!-- <div class="flex flex-y justify-center flex-col items-center gap-1"> -->
     <form class="flex items-center gap-1" @submit.prevent="router.push(`/summoner/${selection.region}/${selection.name}/${selection.tag}`)">
       <select name="Region" v-model="selection.region">
         <option value="NA1">North America</option>
@@ -39,7 +38,7 @@ const router = useRouter();
       <input id="tagline" v-model="selection.tag"/>
       <button type="submit" class="bg-gray-100 p-2">Submit</button>
   </form>
-  </div>
+  <!-- </div> -->
 </template>
 
 <style scoped>
