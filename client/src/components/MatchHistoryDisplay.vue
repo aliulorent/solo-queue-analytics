@@ -48,7 +48,7 @@ const summonerSpellMap ={
     <div v-if="!matchHistory.isError && !matchHistory.isLoading && matchHistory.statusCode===200">
         <!-- Container for each match -->
         <div v-for="(match, index) in matchHistory.matches" :key="match.info.gameId">
-            <div v-if="match.info.participants.find(p=>(p.puuid===player.puuid))" class="flex flex-row gap-3 bg-blue-800 rounded-xl m-4 p-2 px-4">
+            <div v-if="match.info.participants.find(p=>(p.puuid===player.puuid))" class="flex flex-row gap-3 bg-base-100 rounded-xl m-4 p-2 px-4">
             <!-- Text container: Queue, Win/Loss, Duration, Data -->
                 <div class="flex flex-col justify-center items-center text-white text-xs">
                     <h3>{{ match.info.queueId===420 ? "Ranked Solo/Duo" : "Ranked Flex" }}</h3>
