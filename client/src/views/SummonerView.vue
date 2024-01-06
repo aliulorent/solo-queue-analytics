@@ -6,6 +6,7 @@ import { useMatchHistoryStore } from "@/stores/matchHistoryStore";
 import UserDisplay from "../components/UserDisplay.vue"
 import SearchBar from "@/components/SearchBar.vue";
 import MatchHistoryDisplay from "@/components/MatchHistoryDisplay.vue";
+import StatsPanel from "@/components/StatsPanel.vue";
 
 const player = usePlayerStore();
 const ranked = useRankedStore();
@@ -19,6 +20,7 @@ const loadData = async ()=>{
     await ranked.fetchRankedStats();
     await matchHistory.fetchMatchHistory();
 };
+
 loadData();
 
 </script>
@@ -29,10 +31,12 @@ loadData();
     <div v-if="player.isLoading===true && player.isError===false">Loading Player...</div>
     <div v-if="player.isLoading===false && player.isError===true">Error occurred</div>
     <div v-if="player.isLoading===false && player.isError===false">
-        <UserDisplay/>
+        <div v-if="matchHistory.isLoading===false && matchHistory.isError===false"><UserDisplay/></div>
         <div class="flex">
-            <div>Temp</div>
-            <MatchHistoryDisplay/>
+            <div><StatsPanel/></div>
+            <div v-if="matchHistory.isLoading===false && matchHistory.statusCode===200">
+                <MatchHistoryDisplay/>
+            </div>
         </div>
     </div>
 </template>

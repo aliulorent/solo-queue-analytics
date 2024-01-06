@@ -10,7 +10,6 @@ const selection = ref({
 const router = useRouter();
 const updateRoute = async ()=>{
   await router.push(`/summoner/${selection.value.region}/${selection.value.name}/${selection.value.tag}`);
-  router.go(0);
 }
 </script>
 

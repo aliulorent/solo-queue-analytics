@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref} from "vue";
 import { usePlayerStore } from "./playerStore";
 
 export const useMatchHistoryStore = defineStore('matchHistory', ()=> {
@@ -13,7 +13,7 @@ export const useMatchHistoryStore = defineStore('matchHistory', ()=> {
     const isError = ref(false);
     const statusCode = ref(0);
 
-    const fetchMatchHistory = async ()=>{
+    const fetchMatchHistory =  async ()=>{
         isLoading.value = true;
         isError.value = false;
         statusCode.value = 0;
