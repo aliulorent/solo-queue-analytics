@@ -31,10 +31,14 @@ loadData();
     <div v-if="player.isLoading===true && player.isError===false">Loading Player...</div>
     <div v-if="player.isLoading===false && player.isError===true">Error occurred</div>
     <div v-if="player.isLoading===false && player.isError===false">
-        <div v-if="matchHistory.isLoading===false && matchHistory.isError===false"><UserDisplay/></div>
+        <div v-if="matchHistory.isLoading===false && matchHistory.isError===false">
+            <UserDisplay/>
+        </div>
         <div class="flex">
-            <div><StatsPanel/></div>
-            <div v-if="matchHistory.isLoading===false && matchHistory.statusCode===200">
+            <div class="" v-if="matchHistory.isLoading===false && matchHistory.isError===false">
+                <StatsPanel/>
+            </div>
+            <div v-if="matchHistory.isLoading===false && matchHistory.isError===false" class="w-[70%]">
                 <MatchHistoryDisplay/>
             </div>
         </div>
