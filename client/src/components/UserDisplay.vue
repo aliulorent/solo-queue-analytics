@@ -38,7 +38,7 @@ const updateData = async ()=>{
         <div class="flex flex-row justify-end">
             <!-- Icon Wrapper -->
             <div class="flex flex-col items-center relative">
-                <div class="px-1 py-0 rounded-t-md rounded-b-none text-white absolute -bottom-3 inset-x-0 flex justify-center"><h3 class="bg-base-100 rounded-full p-2 py-0 outline outline-2 outline-base-300 text-xs">{{ player.level }}</h3></div>
+                <div class="px-1 py-0 rounded-t-md rounded-b-none text-white absolute -bottom-3 inset-x-0 flex justify-center"><h3 class="bg-base-300 rounded-full p-2 py-0 outline outline-2 outline-base-300 text-xs">{{ player.level }}</h3></div>
                 <img 
                 :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${player.icon_id}.png`" 
                 :alt="`Icon ${player.icon_id} from League of Legends.`"
