@@ -112,7 +112,7 @@ app.put('/updateSummoner/:region/:name/:tag', async (req, res)=>{
 
 app.put("/updateMatchHistory/:region/:puuid", async (req, res)=>{
     const queue = 420;
-    const count = 3;
+    const count = 20;
     const offset = 0;
     try{
         // Manually update match history, so need to search through Riot's API
