@@ -13,6 +13,14 @@ export const useMatchHistoryStore = defineStore('matchHistory', ()=> {
     const isError = ref(false);
     const statusCode = ref(0);
 
+    const reset = () =>{
+        matches.value = [];
+        last_update.value = "";
+        isLoading.value = true;
+        isError.value = false;
+        statusCode.value = 0;
+    }
+
     const fetchMatchHistory =  async ()=>{
         isLoading.value = true;
         isError.value = false;
@@ -94,5 +102,5 @@ export const useMatchHistoryStore = defineStore('matchHistory', ()=> {
         }
     };
 
-    return {  matches, last_update, isLoading, isError, statusCode, fetchMatchHistory, updateMatchHistory }
+    return {  matches, last_update, isLoading, isError, statusCode, reset, fetchMatchHistory, updateMatchHistory }
 })

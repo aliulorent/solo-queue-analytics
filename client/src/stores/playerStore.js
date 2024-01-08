@@ -16,6 +16,20 @@ export const usePlayerStore = defineStore('player', ()=> {
     const isError = ref(false);
     const statusCode = ref(0);
 
+    const reset = () =>{
+        puuid.value ="";
+        riot_name.value = "";
+        tag_line.value = "";
+        region.value ="";
+        account_id.value = "";
+        summoner_id.value = "";
+        level.value = 0;
+        icon_id.value = 0;
+        isLoading.value = true;
+        isError.value = false;
+        statusCode.value = 0;
+    }
+
     const setSearch = (regionInput, name, tag)=>{
         riot_name.value = name;
         region.value = regionInput;
@@ -115,5 +129,5 @@ export const usePlayerStore = defineStore('player', ()=> {
         }
     };
 
-    return { puuid, riot_name, tag_line, region, account_id, summoner_id, level, icon_id, isLoading, isError, statusCode, fetchPlayer, setSearch, updatePlayer }
+    return { puuid, riot_name, tag_line, region, account_id, summoner_id, level, icon_id, isLoading, isError, statusCode, reset, fetchPlayer, setSearch, updatePlayer }
 })

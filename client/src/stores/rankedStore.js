@@ -21,6 +21,22 @@ export const useRankedStore = defineStore('ranked', ()=> {
     const isError = ref(false);
     const statusCode = ref(0);
 
+    const reset = () =>{
+        solo_tier.value = "";
+        solo_rank.value = "";
+        solo_lp.value = 0;
+        solo_wins.value = 0;
+        solo_losses.value = 0;
+        flex_tier.value = "";
+        flex_rank.value = "";
+        flex_lp.value = 0;
+        flex_wins.value = 0;
+        flex_losses.value = 0;
+        isLoading.value = true;
+        isError.value = false;
+        statusCode.value = 0;
+    }
+
     const fetchRankedStats = async ()=>{
         isLoading.value = true;
         isError.value = false;
@@ -117,5 +133,5 @@ export const useRankedStore = defineStore('ranked', ()=> {
             isLoading.value = false;
         }
     };
-    return { solo_tier, solo_rank, solo_lp, solo_wins, solo_losses, flex_tier, flex_rank, flex_lp, flex_wins, flex_losses, isLoading, isError, statusCode, fetchRankedStats, updateRankedStats}
+    return { solo_tier, solo_rank, solo_lp, solo_wins, solo_losses, flex_tier, flex_rank, flex_lp, flex_wins, flex_losses, isLoading, isError, statusCode, reset, fetchRankedStats, updateRankedStats}
 })
