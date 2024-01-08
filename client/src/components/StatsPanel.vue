@@ -108,100 +108,103 @@ const sums = computed(()=>{
 })
 </script>
 <template>
-    <div class="flex flex-col">
-        <h3> Player Stats </h3>
-        <div class="stats stats-horizontal">
-            <div class="stat">
-                <div class="stat-title">Avg. Kills</div>
-                <div class="stat-value">{{ (sums.kills/numGames).toFixed(1) }}</div>
+    <div class="flex flex-col items-center mt-2 pt-2">
+        <h1 class="text-white font-bold text-xl">{{ `Average stats over the last ${numGames ? numGames : 0} games...` }}</h1>
+        <div class="flex flex-col">
+            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Player Stats </h3>
+            <div class="stats stats-horizontal">
+                <div class="stat">
+                    <div class="stat-title text-xs">Kills</div>
+                    <div class="stat-value text-3xl">{{ (sums.kills/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Deaths</div>
+                    <div class="stat-value text-3xl">{{ (sums.deaths/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Assists</div>
+                    <div class="stat-value text-3xl">{{ (sums.assists/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Kill Participation</div>
+                    <div class="stat-value text-3xl">{{ ((sums.killParticipation/numGames)*100).toFixed(1) +"%" }}</div>
+                </div>
             </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Deaths</div>
-                <div class="stat-value">{{ (sums.deaths/numGames).toFixed(1) }}</div>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Income </h3>
+            <div class="stats stats-horizontal">
+                <div class="stat">
+                    <div class="stat-title text-xs">Gold Earned</div>
+                    <div class="stat-value text-3xl">{{ (sums.goldEarned/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Gold Spent</div>
+                    <div class="stat-value text-3xl">{{ (sums.goldSpent/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Gold/Min</div>
+                    <div class="stat-value text-3xl">{{ (sums.goldEarned/(sums.timePlayed/60)).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Bounty Gold</div>
+                    <div class="stat-value text-3xl">{{ (sums.bountyGold/numGames).toFixed(1) }}</div>
+                </div>
             </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Assists</div>
-                <div class="stat-value">{{ (sums.assists/numGames).toFixed(1) }}</div>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Structures </h3>
+            <div class="stats stats-horizontal">
+                <div class="stat">
+                    <div class="stat-title text-xs">Plates Taken</div>
+                    <div class="stat-value text-3xl">{{ (sums.turretPlatesTaken/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Turret Takedowns</div>
+                    <div class="stat-value text-3xl">{{ (sums.turretTakedowns/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">DMG to Turrets</div>
+                    <div class="stat-value text-3xl">{{ (sums.damageDealtToTurrets/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">DMG to Objectives</div>
+                    <div class="stat-value text-3xl">{{ (sums.damageDealtToObjectives/numGames).toFixed(1) }}</div>
+                </div>
             </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Kill Participation</div>
-                <div class="stat-value">{{ ((sums.killParticipation/numGames)*100).toFixed(1) +"%" }}</div>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Neutral Objectives </h3>
+            <div class="stats stats-horizontal">
+                <div class="stat">
+                    <div class="stat-title text-xs">Dragon Takedowns </div>
+                    <div class="stat-value text-3xl">{{ (sums.dragonTakedowns/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Team Dragon Kills</div>
+                    <div class="stat-value text-3xl">{{ (sums.teamDragonKills/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Baron Takedowns </div>
+                    <div class="stat-value text-3xl">{{ (sums.baronTakedowns/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Team Baron Kills </div>
+                    <div class="stat-value text-3xl">{{ (sums.teamBaronKills/numGames).toFixed(1) }}</div>
+                </div>
             </div>
-        </div>
-        <h3> Income </h3>
-        <div class="stats stats-horizontal">
-            <div class="stat">
-                <div class="stat-title">Avg. Gold Earned</div>
-                <div class="stat-value">{{ (sums.goldEarned/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Gold Spent</div>
-                <div class="stat-value">{{ (sums.goldSpent/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Gold/Min</div>
-                <div class="stat-value">{{ (sums.goldEarned/(sums.timePlayed/60)).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Bounty Gold</div>
-                <div class="stat-value">{{ (sums.bountyGold/numGames).toFixed(1) }}</div>
-            </div>
-        </div>
-        <h3> Structures </h3>
-        <div class="stats stats-horizontal">
-            <div class="stat">
-                <div class="stat-title">Avg. Plates Taken</div>
-                <div class="stat-value">{{ (sums.turretPlatesTaken/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Turret Takedowns</div>
-                <div class="stat-value">{{ (sums.turretTakedowns/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. DMG to Turrets</div>
-                <div class="stat-value">{{ (sums.damageDealtToTurrets/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. DMG to Objectives</div>
-                <div class="stat-value">{{ (sums.damageDealtToObjectives/numGames).toFixed(1) }}</div>
-            </div>
-        </div>
-        <h3> Neutral Objectives </h3>
-        <div class="stats stats-horizontal">
-            <div class="stat">
-                <div class="stat-title">Avg. Dragon Takedowns </div>
-                <div class="stat-value">{{ (sums.dragonTakedowns/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Team Dragon Kills</div>
-                <div class="stat-value">{{ (sums.teamDragonKills/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Baron Takedowns </div>
-                <div class="stat-value">{{ (sums.baronTakedowns/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Team Baron Kills </div>
-                <div class="stat-value">{{ (sums.teamBaronKills/numGames).toFixed(1) }}</div>
-            </div>
-        </div>
-        <h3> Vision Score </h3>
-        <div class="stats stats-horizontal">
-            <div class="stat">
-                <div class="stat-title">Avg. Vision Score </div>
-                <div class="stat-value">{{ (sums.visionScore/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Stealth Wards Placed </div>
-                <div class="stat-value">{{ (sums.stealthWardsPlaced/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Control Wards Placed </div>
-                <div class="stat-value">{{ (sums.controlWardsPlaced/numGames).toFixed(1) }}</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Avg. Wards Destroyed </div>
-                <div class="stat-value">{{ (sums.wardTakedowns/numGames).toFixed(1) }}</div>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Vision Score </h3>
+            <div class="stats stats-horizontal">
+                <div class="stat">
+                    <div class="stat-title text-xs">Vision Score </div>
+                    <div class="stat-value text-3xl">{{ (sums.visionScore/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Stealth Wards Placed </div>
+                    <div class="stat-value text-3xl">{{ (sums.stealthWardsPlaced/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Control Wards Placed </div>
+                    <div class="stat-value text-3xl">{{ (sums.controlWardsPlaced/numGames).toFixed(1) }}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title text-xs">Wards Destroyed </div>
+                    <div class="stat-value text-3xl">{{ (sums.wardTakedowns/numGames).toFixed(1) }}</div>
+                </div>
             </div>
         </div>
     </div>
