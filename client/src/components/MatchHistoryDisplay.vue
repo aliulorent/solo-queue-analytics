@@ -47,13 +47,13 @@ const summonerSpellMap ={
     <!-- Container for the whole match history -->
     <div v-if="!matchHistory.isError && !matchHistory.isLoading && matchHistory.statusCode===200">
         <!-- Container for each match -->
-        <div v-for="(match, index) in matchHistory.matches" :key="match.info.gameId">
-            <div v-if="match.info.participants.find(p=>(p.puuid===player.puuid))" class="flex flex-row gap-3 bg-base-100 rounded-xl m-4 p-2 px-4">
+        <div v-for="match in matchHistory.matches" :key="match.info.gameId">
+            <div v-if="match.info.participants.find(p=>(p.puuid===player.puuid))" class="flex flex-row gap-3 bg-base-100 rounded-xl m-4 p-2 px-4 border-solid border-b-4" :class="match.info.participants.find(p=>(p.puuid===player.puuid)).win ? 'border-success' : 'border-error'">
             <!-- Text container: Queue, Win/Loss, Duration, Data -->
                 <div class="flex flex-col justify-center items-center text-white text-xs">
                     <h3>{{ match.info.queueId===420 ? "Ranked Solo/Duo" : "Ranked Flex" }}</h3>
                     <h3>{{ timeDifference(Date.now() , match.info.gameEndTimestamp) }}</h3>
-                    <h2 class="text-lg">{{ match.info.participants.find(p=>(p.puuid===player.puuid)).win ? "WIN" : "LOSS"  }}</h2>
+                    <h2 class="text-lg" :class="match.info.participants.find(p=>(p.puuid===player.puuid)).win ? 'text-success' : 'text-error'">{{ match.info.participants.find(p=>(p.puuid===player.puuid)).win ? "WIN" : "LOSS"  }}</h2>
                     <h3>{{ Math.floor(match.info.gameDuration/60) + "m " + match.info.gameDuration % 60 + "s" }}</h3>
                 </div>
                 <!-- Picture container: Champion played icon -->
@@ -64,21 +64,21 @@ const summonerSpellMap ={
                         :alt="`Champion Square Icon`" 
                         width="64px" 
                         height="64px">
-                        <h3 class="absolute bottom-0 left-0 text-white font-bold p-1 text-xs bg-black bg-opacity-40 rounded-lg">{{ match.info.participants.find(p=>(p.puuid===player.puuid)).champLevel }}</h3>
+                        <h3 class="absolute bottom-0 left-0 text-white font-bold p-1 pt-0 text-xs bg-black bg-opacity-40 rounded-tr-lg">{{ match.info.participants.find(p=>(p.puuid===player.puuid)).champLevel }}</h3>
                     </div>
                 </div>
                 <!-- Summoner Spells & potentially Runes Container -->
-                <div class="flex flex-col justify-center gap-1">
+                <div class="flex flex-col justify-center gap-1 -ml-2">
                     <img
                     :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/${summonerSpellMap[match.info.participants.find(p=>(p.puuid===player.puuid)).summoner1Id]}.png`"
                     :alt="`Summoner Spell Icon`"
-                    width="28px"
-                    height="28px">
+                    width="29px"
+                    height="29px">
                     <img
                     :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/${summonerSpellMap[match.info.participants.find(p=>(p.puuid===player.puuid)).summoner2Id]}.png`"
                     :alt="`Summoner Spell Icon`"
-                    width="28px"
-                    height="28px">
+                    width="29px"
+                    height="29px">
                 </div>
                 <!-- KDA Container -->
                 <div class="flex flex-col justify-center items-center m-3 text-white text-lg font-semibold">
@@ -87,13 +87,14 @@ const summonerSpellMap ={
                 </div>
                 <!-- Items Container -->
                 <div class="flex flex-row items-center gap-1">
-                    <div v-for="i in 7" :key="i" class="rounded-sm ">
+                    <div v-for="i in 7" :key="i">
                         <img v-if="match.info.participants.find(p=>(p.puuid===player.puuid))[`item${i-1}`]!=0"
                         :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/item/${match.info.participants.find(p=>(p.puuid===player.puuid))[`item${i-1}`]}.png`"
                         :alt="`Picture of an item slot`"
                         width="24px"
-                        height="24px">
-                        <div v-else class="w-[24px] h-[24px] bg-blue-400"></div>
+                        height="24px"
+                        class="rounded-sm">
+                        <div v-else class="w-[24px] h-[24px] bg-base-300 rounded-sm"></div>
                     </div>
                 </div>
                 <!-- Participants container -->

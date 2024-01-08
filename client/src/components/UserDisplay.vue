@@ -26,7 +26,9 @@ const updateData = async ()=>{
     console.log("Updating Data...");
     await player.updatePlayer();
     await ranked.updateRankedStats();
-    await matchHistory.updateMatchHistory();
+    setTimeout(async () => {
+        await matchHistory.updateMatchHistory();
+    }, 1000);
 }
 </script>
 <template>

@@ -109,7 +109,7 @@ const sums = computed(()=>{
 </script>
 <template>
     <div class="flex flex-col items-center mt-2 pt-2">
-        <h1 class="text-white font-bold text-xl">{{ `Average stats over the last ${numGames ? numGames : 0} games...` }}</h1>
+        <h1 class="text-white font-bold text-xl">{{ `Averages over the last ${numGames ? numGames : 0} games` }}</h1>
         <div class="flex flex-col">
             <h3 class="text-gray-500 text-lg pl-3 mt-2"> Player Stats </h3>
             <div class="stats stats-horizontal">
