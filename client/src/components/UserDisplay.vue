@@ -51,8 +51,9 @@ const updateData = async ()=>{
                     <h1 class="font-bold text-white">{{ player.riot_name }}</h1>
                     <h1 class="font-bold text-gray-500">{{ "#"+player.tag_line }}</h1>
                 </div>
-                <div class="">
+                <div class="flex">
                     <button @click="updateData" class="rounded-lg bg-primary text-primary-content p-1 px-2 mx-3" >Update</button>
+                    <span v-if="player.isLoading || matchHistory.isLoading || ranked.isLoading" class="loading loading-spinner text-primary"></span>
                 </div>
             </div>
         </div>

@@ -45,7 +45,7 @@ const summonerSpellMap ={
 </script>
 <template>
     <!-- Container for the whole match history -->
-    <div v-if="!matchHistory.isError && !matchHistory.isLoading && matchHistory.statusCode===200">
+    <div v-if="!matchHistory.isError">
         <!-- Container for each match -->
         <div v-for="match in matchHistory.matches" :key="match.info.gameId">
             <div v-if="match.info.participants.find(p=>(p.puuid===player.puuid))" class="flex flex-row gap-3 bg-base-100 rounded-xl m-4 p-2 px-4 border-solid border-b-4" :class="match.info.participants.find(p=>(p.puuid===player.puuid)).win ? 'border-success' : 'border-error'">
@@ -123,4 +123,5 @@ const summonerSpellMap ={
             </div>
         </div>
     </div>
+    <div v-else-if="matchHistory.isError && !player.isError" class="text-white font-bold text-xl">No matches found! Play some games or update your profile!</div>
 </template>

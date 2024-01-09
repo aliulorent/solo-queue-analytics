@@ -43,9 +43,7 @@ loadData();
             <div class="" v-if="matchHistory.isLoading===false && matchHistory.isError===false">
                 <StatsPanel/>
             </div>
-            <div v-if="matchHistory.isLoading===false && matchHistory.isError===false" class="grow-0">
-                <MatchHistoryDisplay/>
-            </div>
+            <MatchHistoryDisplay/>
         </div>
     </div>
 </template>
