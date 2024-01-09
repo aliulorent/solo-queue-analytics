@@ -30,8 +30,13 @@ loadData();
     <div class="flex flex-row justify-center sticky top-0 bg-base-300 pb-2 pt-0 z-20 drop-shadow-lg">
         <SearchBar/>
     </div>
-    <div v-if="player.isLoading===true && player.isError===false">Loading Player...</div>
-    <div v-if="player.isLoading===false && player.isError===true">Error occurred</div>
+    <div v-if="player.isLoading===true && player.isError===false" class="flex justify-center">
+        <span class="loading loading-ring loading-lg m-8"></span>
+    </div>
+    <div v-if="player.isLoading===false && player.isError===true">
+        <h1 v-if="player.statusCode===404" class="text-3xl text-white text-center m-8">Player not found! Check for correct spelling.</h1>
+        <h1 v-else class="text-3xl text-white text-center m-8">An unexpected error occurred! Please try again in a few minutes...</h1>
+    </div>
     <div v-if="player.isLoading===false && player.isError===false" class="pt-4">
         <UserDisplay/>
         <div class="flex gap-3 justify-center mx-4">
