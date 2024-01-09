@@ -72,7 +72,7 @@ app.get('/getSummoner/:region/:name/:tag', async (req, res) => {
     }
     catch(error){
         if(error.response){
-            console.log(error.response.status);
+            //console.log(error.response.status);
             res.status(error.response.status).send("Error");
         }
         else{
@@ -101,7 +101,7 @@ app.put('/updateSummoner/:region/:name/:tag', async (req, res)=>{
     }
     catch(error){
         if(error.response){
-            console.log(error.response.status);
+            //console.log(error.response.status);
             res.status(error.response.status).send("Error");
         }
         else{
@@ -144,7 +144,7 @@ app.put("/updateMatchHistory/:region/:puuid", async (req, res)=>{
             res.status(error.response.status).send("Error");
         }
         else{
-            console.log(error);
+            //console.log(error);
             res.status(500).send("Something unexpected happened... Please try again later.");
         }
     }
