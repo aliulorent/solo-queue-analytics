@@ -40,9 +40,7 @@ loadData();
     <div v-if="player.isLoading===false && player.isError===false" class="pt-4">
         <UserDisplay/>
         <div class="flex gap-3 justify-center mx-4">
-            <div class="" v-if="matchHistory.isLoading===false && matchHistory.isError===false">
-                <StatsPanel/>
-            </div>
+            <StatsPanel/>
             <MatchHistoryDisplay/>
         </div>
     </div>
