@@ -26,7 +26,7 @@ export const useMatchHistoryStore = defineStore('matchHistory', ()=> {
         isError.value = false;
         statusCode.value = 0;
         try{
-            const res = await fetch(`http://localhost:3000/getMatchHistory/${player.puuid}`, {method: 'GET'});
+            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/getMatchHistory/${player.puuid}`, {method: 'GET'});
             if(res.status && res.status===200){
                 //Successfully recieved a response
                 const data = await res.json();
@@ -66,7 +66,7 @@ export const useMatchHistoryStore = defineStore('matchHistory', ()=> {
         isError.value = false;
         statusCode.value = 0;
         try{
-            const res = await fetch(`http://localhost:3000/updateMatchHistory/${player.region}/${player.puuid}`, {method: 'PUT'});
+            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/updateMatchHistory/${player.region}/${player.puuid}`, {method: 'PUT'});
             if(res.status && res.status===200){
                 //Successfully recieved a response
                 const data = await res.json();

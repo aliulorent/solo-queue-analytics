@@ -40,7 +40,7 @@ export const usePlayerStore = defineStore('player', ()=> {
         isError.value = false;
         statusCode.value = 0;
         try{
-            const res = await fetch(`http://localhost:3000/getSummoner/${region.value}/${riot_name.value}/${tag_line.value}`, {method: 'GET'});
+            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/getSummoner/${region.value}/${riot_name.value}/${tag_line.value}`, {method: 'GET'});
             if(res.status && res.status===200){
                 //Successfully recieved a response
 
@@ -87,7 +87,7 @@ export const usePlayerStore = defineStore('player', ()=> {
         isError.value = false;
         statusCode.value = 0;
         try{
-            const res = await fetch(`http://localhost:3000/updateSummoner/${region.value}/${riot_name.value}/${tag_line.value}`, {method: 'PUT'});
+            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/updateSummoner/${region.value}/${riot_name.value}/${tag_line.value}`, {method: 'PUT'});
             if(res.status && res.status===200){
                 //Successfully recieved a response
                 const data = await res.json();
