@@ -83,7 +83,7 @@ export const usePlayerStore = defineStore('player', ()=> {
         }
     }
     const updatePlayer = async ()=>{
-        isLoading.value = true;
+        //isLoading.value = true;
         isError.value = false;
         statusCode.value = 0;
         try{
