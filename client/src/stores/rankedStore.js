@@ -42,7 +42,7 @@ export const useRankedStore = defineStore('ranked', ()=> {
         isError.value = false;
         statusCode.value = 0;
         try{
-            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/getRankedStats/${player.puuid}`, {method: 'GET'});
+            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/getRankedStats/${player.puuid}`, {method: 'GET', mode:'cors'});
             if(res.status && res.status===200){
                 //Successfully recieved a response
                 const data = await res.json();
@@ -90,7 +90,7 @@ export const useRankedStore = defineStore('ranked', ()=> {
         isError.value = false;
         statusCode.value = 0;
         try{
-            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/updateRankedStats/${player.region}/${player.summoner_id}/${player.puuid}`, {method: 'PUT'});
+            const res = await fetch(`https://solo-queue-analytics.onrender.com:10000/updateRankedStats/${player.region}/${player.summoner_id}/${player.puuid}`, {method: 'PUT', mode:'cors'});
             if(res.status && res.status===200){
                 //Successfully recieved a response
                 const data = await res.json();
