@@ -36,7 +36,7 @@ const riotKey = process.env.RIOT_KEY;
 
 const connection = await mysql.createConnection(process.env.DATABASE_URL);
 app.use(cors({
-    origin: 'https://solo-queue-analytics.netlify.app/'
+    origin: 'https://solo-queue-analytics.netlify.app'
 }))
 
 app.get('/', (req, res) => {
