@@ -1,7 +1,7 @@
 # Solo Queue Analytics
 
 
-Solo Queue Analytics is a web app that allows users to search up their League of Legends profie and view various statistics on their solo queue ranked performance. The tool displays information about the last 20 ranked games and calculates the averages based on that.
+[Solo Queue Analytics](https://solo-queue-analytics.netlify.app/) is a web app that allows users to search up their League of Legends profie and view various statistics on their solo queue ranked performance. The tool displays information about the last 20 ranked games and calculates the averages based on that.
 
 This project is broken down into two subfolders. The front-end can be found in the `client/` folder, and the back-end can be found in `server/`.
 
