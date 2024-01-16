@@ -36,7 +36,7 @@ const riotKey = process.env.RIOT_KEY;
 
 const connection = await mysql.createConnection(process.env.DATABASE_URL);
 app.use(cors({
-    origin: 'https://solo-queue-analytics.netlify.app'
+    origin: '*'
 }))
 
 app.get('/', (req, res) => {
@@ -58,8 +58,8 @@ app.get('/getSummoner/:region/:name/:tag', async (req, res) => {
             const summonerResponse = await axios.get(`https://${req.params.region.toUpperCase()}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${riotKey}`);
             // After fetching updated data, need to store it in DB for future searches.
             const data = summonerResponse.data;
-            const query2 = `INSERT INTO users (puuid, riot_name, tag_line, region, account_id, summoner_id, level, icon_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-            const [results] = await connection.query(query2, [puuid, puuidResponse.data.gameName, puuidResponse.data.tagLine, req.params.region, data.accountId, data.id, data.summonerLevel, data.profileIconId]);
+            const query2 = `INSERT INTO users (puuid, riot_name, tag_line, region, account_id, summoner_id, level, icon_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE riot_name=?, tag_line=?, region=?, account_id=?, summoner_id=?, level=?, icon_id=?`;
+            const [results] = await connection.query(query2, [puuid, puuidResponse.data.gameName, puuidResponse.data.tagLine, req.params.region, data.accountId, data.id, data.summonerLevel, data.profileIconId, puuidResponse.data.gameName, puuidResponse.data.tagLine, req.params.region, data.accountId, data.id, data.summonerLevel, data.profileIconId]);
             // Insert queries don't return the rows inserted, so we need to query it again to retrieve it!
             const [rows2, fields2] = await connection.query(query, [puuidResponse.data.gameName, puuidResponse.data.tagLine, req.params.region]);
             if(rows2.length>0){
@@ -141,7 +141,7 @@ app.put("/updateMatchHistory/:region/:puuid", async (req, res)=>{
     }
     catch(error){
         if(error.response){
-            res.status(error.response.status).send("Error");
+            res.status(error.response.status).send(error);
         }
         else{
             //console.log(error);
