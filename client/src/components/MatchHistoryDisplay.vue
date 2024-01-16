@@ -60,7 +60,7 @@ const summonerSpellMap ={
                 <div class="flex items-center">
                     <div class="relative">
                         <img 
-                        :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${match.info.participants.find(p=>(p.puuid===player.puuid)).championName}.png`" 
+                        :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${(match.info.participants.find(p=>(p.puuid===player.puuid)).championName==='FiddleSticks' ? 'Fiddlesticks': match.info.participants.find(p=>(p.puuid===player.puuid)).championName)}.png`" 
                         :alt="`Champion Square Icon`" 
                         width="64px" 
                         height="64px">
@@ -103,7 +103,7 @@ const summonerSpellMap ={
                     <div class="flex flex-col gap-1">
                         <div v-for="n in 5" :key="n" class="flex items-center gap-1">
                             <img 
-                            :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${match.info.participants[n-1].championName}.png`" 
+                            :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${(match.info.participants[n-1].championName ==='FiddleSticks' ? 'Fiddlesticks' : match.info.participants[n-1].championName)}.png`" 
                             :alt="`Champion Square Icon`" 
                             class="w-[16px] h-[16px]">
                             <h3 class="text-white">{{ match.info.participants[n-1].riotIdGameName }}</h3>
@@ -113,7 +113,7 @@ const summonerSpellMap ={
                     <div class="flex flex-col gap-1">
                         <div v-for="n in 5" :key="n" class="flex items-center gap-1">
                             <img 
-                            :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${match.info.participants[n+4].championName}.png`" 
+                            :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${(match.info.participants[n+4].championName ==='FiddleSticks' ? 'Fiddlesticks' : match.info.participants[n+4].championName)}.png`" 
                             :alt="`Champion Square Icon`" 
                             class="w-[16px] h-[16px]">
                             <h3 class="text-white">{{ match.info.participants[n+4].riotIdGameName }}</h3>
