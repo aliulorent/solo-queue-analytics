@@ -90,7 +90,7 @@ const summonerSpellMap ={
                     <div v-for="i in 7" :key="i">
                         <img v-if="match.info.participants.find(p=>(p.puuid===player.puuid))[`item${i-1}`]!=0"
                         :src="`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/item/${match.info.participants.find(p=>(p.puuid===player.puuid))[`item${i-1}`]}.png`"
-                        :alt="`Picture of an item slot`"
+                        :alt="`S14`"
                         width="24px"
                         height="24px"
                         class="rounded-sm">

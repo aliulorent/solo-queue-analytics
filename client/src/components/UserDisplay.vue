@@ -2,10 +2,11 @@
 import { usePlayerStore } from "@/stores/playerStore";
 import { useRankedStore} from "@/stores/rankedStore";
 import { useMatchHistoryStore } from "@/stores/matchHistoryStore";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 const player = usePlayerStore();
 const ranked = useRankedStore();
 const matchHistory = useMatchHistoryStore();
+const btnStatus = ref(false);
 const soloWinRate = computed(()=>{
     if(ranked && ranked.solo_wins){
         return Math.round((ranked.solo_wins / (ranked.solo_wins + ranked.solo_losses) * 100));
@@ -26,9 +27,13 @@ const updateData = async ()=>{
     console.log("Updating Data...");
     await player.updatePlayer();
     await ranked.updateRankedStats();
+    btnStatus.value = true;
     setTimeout(async () => {
         await matchHistory.updateMatchHistory();
     }, 1000);
+    setTimeout(()=>{
+        btnStatus.value = false;
+    }, 120 * 1000);
 }
 </script>
 <template>
@@ -52,7 +57,7 @@ const updateData = async ()=>{
                     <h1 class="font-bold text-gray-500">{{ "#"+player.tag_line }}</h1>
                 </div>
                 <div class="flex">
-                    <button @click="updateData" class="rounded-lg bg-primary text-primary-content p-1 px-2 mx-3" >Update</button>
+                    <button @click="updateData" :disabled="btnStatus" class="rounded-lg text-primary-content p-1 px-2 mx-3" :class="btnStatus ? 'bg-error cursor-not-allowed' : 'bg-primary'" >Update</button>
                     <span v-if="player.isLoading || matchHistory.isLoading || ranked.isLoading" class="loading loading-spinner text-primary"></span>
                 </div>
             </div>
