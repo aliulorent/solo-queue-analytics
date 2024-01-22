@@ -6,9 +6,10 @@
 This project is broken down into two subfolders. The front-end can be found in the `client/` folder, and the back-end can be found in `server/`.
 
 Here are some example profiles for demoing the app:
-Region: North America, Riot Name: Pobelter, Tag: NA1. [Direct Link](https://solo-queue-analytics.netlify.app/summoner/NA1/Pobelter/NA1)
-Region: North America, Riot Name: Adrian Riven, Tag: NA1. [Direct Link](https://solo-queue-analytics.netlify.app/summoner/NA1/Adrian%20Riven/NA1)
-Region: North America, Riot Name: Voppo, Tag: NA1. [Direct Link](https://solo-queue-analytics.netlify.app/summoner/NA1/Voppo/NA1)
+
+- Region: North America, Riot Name: Pobelter, Tag: NA1. [Direct Link](https://solo-queue-analytics.netlify.app/summoner/NA1/Pobelter/NA1)
+- Region: North America, Riot Name: Adrian Riven, Tag: NA1. [Direct Link](https://solo-queue-analytics.netlify.app/summoner/NA1/Adrian%20Riven/NA1)
+- Region: North America, Riot Name: Voppo, Tag: NA1. [Direct Link](https://solo-queue-analytics.netlify.app/summoner/NA1/Voppo/NA1)
 
 
 Warning: Due to the massive item changes in Season 14, Riot's API has not been updated to reflect the new item icons. As a result, the items displayed in the match history section might display as "S14" instead of an icon. This will hopefully be fixed soon.
