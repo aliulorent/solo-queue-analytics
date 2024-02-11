@@ -34,8 +34,8 @@ loadData();
         <span class="loading loading-ring loading-lg m-8"></span>
     </div>
     <div v-if="player.isLoading===false && player.isError===true">
-        <h1 v-if="player.statusCode===404" class="text-3xl text-white text-center m-8">Player not found! Check for correct spelling.</h1>
-        <h1 v-else class="text-3xl text-white text-center m-8">An unexpected error occurred! Please try again in a few minutes...</h1>
+        <h1 v-if="player.statusCode===404" class="text-3xl text-white text-center m-8 font-Beaufort">Player not found! Check for correct spelling.</h1>
+        <h1 v-else class="text-3xl text-white text-center m-8 font-Beaufort">An unexpected error occurred! Please try again in a few minutes...</h1>
     </div>
     <div v-if="player.isLoading===false && player.isError===false" class="pt-4">
         <UserDisplay/>
