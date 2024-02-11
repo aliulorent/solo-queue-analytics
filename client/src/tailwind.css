@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+      font-family: Beaufort;
+      src: url(./assets/BeaufortforLOL-Bold.ttf);
+    }
+    /* @font-face {
+        font-family: Beaufort-medium;
+        src: url(/assets/BeaufortforLOL-Medium.ttf);
+    } */
+    @font-face {
+      font-family: Spiegel;
+      src: url(./assets/Spiegel_TT_Regular.ttf);
+    }
+  }

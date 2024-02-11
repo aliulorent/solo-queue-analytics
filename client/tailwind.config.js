@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'Beaufort': ['Beaufort', 'sans-serif'],
+        'Spiegel': ['Spiegel',  'sans-serif']
+      }
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
