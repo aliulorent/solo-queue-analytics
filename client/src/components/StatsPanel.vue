@@ -109,9 +109,9 @@ const sums = computed(()=>{
 </script>
 <template>
     <div v-if="!matchHistory.isError && matchHistory.matches.length>0" class="flex flex-col items-center mt-2 pt-2">
-        <h1 class="text-white font-bold text-xl">{{ `Averages over the last ${numGames ? numGames : 0} games` }}</h1>
+        <h1 class="text-white font-bold text-xl font-Beaufort">{{ `Averages over the last ${numGames ? numGames : 0} games` }}</h1>
         <div class="flex flex-col">
-            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Player Stats </h3>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2 font-Beaufort"> Player Stats </h3>
             <div class="stats stats-horizontal">
                 <div class="stat">
                     <div class="stat-title text-xs">Kills</div>
@@ -130,7 +130,7 @@ const sums = computed(()=>{
                     <div class="stat-value text-3xl">{{ ((sums.killParticipation/numGames)*100).toFixed(1) +"%" }}</div>
                 </div>
             </div>
-            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Income </h3>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2 font-Beaufort"> Income </h3>
             <div class="stats stats-horizontal">
                 <div class="stat">
                     <div class="stat-title text-xs">Gold Earned</div>
@@ -149,7 +149,7 @@ const sums = computed(()=>{
                     <div class="stat-value text-3xl">{{ (sums.bountyGold/numGames).toFixed(1) }}</div>
                 </div>
             </div>
-            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Structures </h3>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2 font-Beaufort"> Structures </h3>
             <div class="stats stats-horizontal">
                 <div class="stat">
                     <div class="stat-title text-xs">Plates Taken</div>
@@ -168,7 +168,7 @@ const sums = computed(()=>{
                     <div class="stat-value text-3xl">{{ (sums.damageDealtToObjectives/numGames).toFixed(1) }}</div>
                 </div>
             </div>
-            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Neutral Objectives </h3>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2 font-Beaufort"> Neutral Objectives </h3>
             <div class="stats stats-horizontal">
                 <div class="stat">
                     <div class="stat-title text-xs">Dragon Takedowns </div>
@@ -187,7 +187,7 @@ const sums = computed(()=>{
                     <div class="stat-value text-3xl">{{ (sums.teamBaronKills/numGames).toFixed(1) }}</div>
                 </div>
             </div>
-            <h3 class="text-gray-500 text-lg pl-3 mt-2"> Vision Score </h3>
+            <h3 class="text-gray-500 text-lg pl-3 mt-2 font-Beaufort"> Vision Score </h3>
             <div class="stats stats-horizontal">
                 <div class="stat">
                     <div class="stat-title text-xs">Vision Score </div>

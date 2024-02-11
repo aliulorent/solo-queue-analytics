@@ -53,11 +53,11 @@ const updateData = async ()=>{
             </div>
             <div class="flex flex-col justify-center">
                 <div class="flex gap-2 m-3 text-3xl">
-                    <h1 class="font-bold text-white">{{ player.riot_name }}</h1>
-                    <h1 class="font-bold text-gray-500">{{ "#"+player.tag_line }}</h1>
+                    <h1 class="font-bold text-white font-Beaufort">{{ player.riot_name }}</h1>
+                    <h1 class="font-bold text-gray-500 font-Beaufort">{{ "#"+player.tag_line }}</h1>
                 </div>
                 <div class="flex">
-                    <button @click="updateData" :disabled="btnStatus" class="rounded-lg text-primary-content p-1 px-2 mx-3" :class="btnStatus ? 'bg-error cursor-not-allowed' : 'bg-primary'" >Update</button>
+                    <button @click="updateData" :disabled="btnStatus" class="rounded-lg text-primary-content p-1 px-2 mx-3 font-Spiegel" :class="btnStatus ? 'bg-error cursor-not-allowed' : 'bg-primary'" >Update</button>
                     <span v-if="player.isLoading || matchHistory.isLoading || ranked.isLoading" class="loading loading-spinner text-primary"></span>
                 </div>
             </div>
@@ -67,7 +67,7 @@ const updateData = async ()=>{
             <!-- Solo Queue Info -->
             <div class="flex flex-col items-center">
                 <div class="ml-3 pb-0">
-                    <h3 class="font-semibold text-gray-500">Ranked Solo/Duo</h3>
+                    <h3 class="font-semibold text-gray-500 font-Spiegel">Ranked Solo/Duo</h3>
                 </div>
                 <div v-if="ranked && ranked.solo_tier" class="flex flex-row p-3 gap-4">
                     <div>
@@ -78,7 +78,7 @@ const updateData = async ()=>{
                         height="80px">
                     </div>
                     <div class="flex flex-col justify-center">
-                        <div class="flex gap-2 text-3xl">
+                        <div class="flex gap-2 text-3xl font-Beaufort">
                             <h1 class="font-bold text-white">{{ ranked.solo_tier }}</h1>
                             <h1 class="font-bold text-white">{{ ranked.solo_rank }}</h1>
                         </div>
@@ -103,7 +103,7 @@ const updateData = async ()=>{
                     </div>
                     <div class="flex flex-col justify-center">
                         <div class="flex gap-2 text-3xl">
-                            <h1 class="font-bold text-white">{{ "Unranked" }}</h1>
+                            <h1 class="font-bold text-white font-Beaufort">{{ "Unranked" }}</h1>
                         </div>
                         <div class="font-semibold text-white">
                             <h3> {{ "0" + " LP" }} </h3>
@@ -120,7 +120,7 @@ const updateData = async ()=>{
             <!-- Flex Queue Info -->
             <div class="flex flex-col items-center">
                 <div class="ml-3">
-                    <h3 class="font-semibold text-gray-500">Ranked Flex</h3>
+                    <h3 class="font-semibold text-gray-500 font-Spiegel">Ranked Flex</h3>
                 </div>
                 <div v-if="ranked && ranked.flex_tier" class="flex flex-row p-3 gap-4">
                     <div>
@@ -131,7 +131,7 @@ const updateData = async ()=>{
                         height="80px">
                     </div>
                     <div class="flex flex-col justify-center">
-                        <div class="flex gap-2 text-3xl">
+                        <div class="flex gap-2 text-3xl font-Beaufort">
                             <h1 class="font-bold text-white">{{ ranked.flex_tier }}</h1>
                             <h1 class="font-bold text-white">{{ ranked.flex_rank }}</h1>
                         </div>
@@ -156,7 +156,7 @@ const updateData = async ()=>{
                     </div>
                     <div class="flex flex-col justify-center">
                         <div class="flex gap-2 text-3xl">
-                            <h1 class="font-bold text-white">{{ "Unranked" }}</h1>
+                            <h1 class="font-bold text-white font-Beaufort">{{ "Unranked" }}</h1>
                         </div>
                         <div class="font-semibold text-white">
                             <h3> {{ "0" + " LP" }} </h3>

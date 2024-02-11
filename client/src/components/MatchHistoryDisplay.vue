@@ -53,7 +53,7 @@ const summonerSpellMap ={
                 <div class="flex flex-col justify-center items-center text-white text-xs">
                     <h3>{{ match.info.queueId===420 ? "Ranked Solo/Duo" : "Ranked Flex" }}</h3>
                     <h3>{{ timeDifference(Date.now() , match.info.gameEndTimestamp) }}</h3>
-                    <h2 class="text-lg" :class="match.info.participants.find(p=>(p.puuid===player.puuid)).win ? 'text-success' : 'text-error'">{{ match.info.participants.find(p=>(p.puuid===player.puuid)).win ? "WIN" : "LOSS"  }}</h2>
+                    <h2 class="text-lg font-Beaufort" :class="match.info.participants.find(p=>(p.puuid===player.puuid)).win ? 'text-success' : 'text-error'">{{ match.info.participants.find(p=>(p.puuid===player.puuid)).win ? "WIN" : "LOSS"  }}</h2>
                     <h3>{{ Math.floor(match.info.gameDuration/60) + "m " + match.info.gameDuration % 60 + "s" }}</h3>
                 </div>
                 <!-- Picture container: Champion played icon -->
